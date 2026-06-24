@@ -315,7 +315,7 @@ Without this layer, Gemini has no knowledge of the repository's actual contents 
                        ▼
 ┌─────────────────────────────────────────────────────┐
 │              Next.js Frontend                       │
-│   Repo Analysis UI · Chat Interface · Copilot UI   │
+│   Repo Analysis UI · Chat Interface · Copilot UI    │
 └──────────────────────┬──────────────────────────────┘
                        │ REST / JSON
                        ▼
@@ -326,7 +326,7 @@ Without this layer, Gemini has no knowledge of the repository's actual contents 
         │                          │
         ▼                          ▼
 ┌──────────────┐        ┌──────────────────────────────┐
-│  GitHub API  │        │         PostgreSQL            │
+│  GitHub API  │        │         PostgreSQL           │
 │              │        │  ┌─────────────────────────┐ │
 │ - File tree  │        │  │  Relational tables       │ │
 │ - Issues     │        │  │  users, repos, analyses  │ │
