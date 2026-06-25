@@ -1,13 +1,12 @@
 import express from "express";
+import repoRoutes from "./routes/repo.routes";
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("RepoMind Backend Running 🚀");
-});
+app.use(express.json());
 
-const PORT = 5000;
+app.use("/api/repository", repoRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(5000, () => {
+    console.log("Server running on port 5000") 
 });
