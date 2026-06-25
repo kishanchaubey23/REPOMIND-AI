@@ -13,30 +13,30 @@ datasource db {
 }
 
 model User{
-  id                String     @id @default(cuid())
+  id                String               @id @default(cuid())
   name              String
-  email             String
+  email             String               @unique
   password          String
 
-  createdAt         DateTime   @default(now())
+  createdAt         DateTime             @default(now())
 
   repositories      Repository[]
 }
 
 model Repository{
-  id               String     @id @default(cuid())
+  id               String               @id @default(cuid())
   githubUrl        String
   name             String
   description      String?
   language         String?
-  stars            Int?
-  forks            Int?
-  status           RepoStatus @default(PENDING)
+  stars            Int?                 @default(0)
+  forks            Int?                 @default(0)
+  status           RepoStatus           @default(PENDING)
 
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
 
-  user             User       @relation(fields: [userId], references: [id])
+  user             User                 @relation(fields: [userId], references: [id])
   userId           String
 
   files            RepositoryFile[]
@@ -46,33 +46,33 @@ model Repository{
 }
 
 model RepositoryFile{
-  id               String     @id @default(cuid())
+  id               String               @id @default(cuid())
   repositoryId     String
-  repository       Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+  repository       Repository           @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
   path             String
   content          String?
   language         String?
 
-  createdAt        DateTime  @default(now())
+  createdAt        DateTime             @default(now())
 }
   
 model Analysis{
-  id               String    @id @default(cuid())
+  id               String               @id @default(cuid())
   repositoryId     String
-  repository       Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+  repository       Repository           @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
   summary          String?
   techStack        Json?
   folderStructure  Json?
 
-  createdAt        DateTime   @default(now())
+  createdAt        DateTime              @default(now())
 
   @@index([repositoryId])
 }
 
 model ChunkEmbedding{
-  id               String     @id @default(cuid())
+  id               String               @id @default(cuid())
   repositoryId     String
-  repository       Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+  repository       Repository           @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
 
   commitSha        String
   filePath         String
@@ -80,7 +80,7 @@ model ChunkEmbedding{
   endLine          Int
   content          String
 
-  createdAt        DateTime   @default(now())
+  createdAt        DateTime             @default(now())
 
   @@index([repositoryId])
   @@index([repositoryId, commitSha])
@@ -88,14 +88,14 @@ model ChunkEmbedding{
 }
 
 model ChatHistory{
-  id           String     @id @default(cuid())
+  id           String               @id @default(cuid())
   repositoryId String
-  repository   Repository @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+  repository   Repository           @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
 
   question     String
   answer       String
 
-  createdAt    DateTime   @default(now())
+  createdAt    DateTime             @default(now())
 
   @@index([repositoryId])
 
